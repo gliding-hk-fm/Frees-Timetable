@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weekly Timetable</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <div class="theme-control">
+        <label for="themeSelect">Theme</label>
+        <select id="themeSelect">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </div>
+      <p class="eyebrow">Weekly planner</p>
+      <h1>Timetable & availability</h1>
+      <p>Browse the full timetable, then choose a week and period to see who is free on each day.</p>
+    </header>
+
+    <section class="controls" aria-label="Availability filters">
+      <label>Week
+        <select id="weekSelect">
+          <option value="A">Week A</option>
+          <option value="B">Week B</option>
+        </select>
+      </label>
+      <label>Period
+        <select id="periodSelect"></select>
+      </label>
+    </section>
+
+    <section class="availability" aria-live="polite">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Your selection</p>
+          <h2 id="selectionTitle">Week A · Period 1</h2>
+        </div>
+      </div>
+      <div id="availabilityCards" class="availability-grid"></div>
+    </section>
+
+    <section class="timetable-section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Complete schedule</p>
+          <h2>All timetable entries</h2>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table id="timetable"></table>
+      </div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
