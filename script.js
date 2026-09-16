@@ -25,13 +25,13 @@ const timetableData = {
 };
 
 const weekSelect = document.querySelector('#weekSelect');
-const periodSelect = document.querySelector('#periodSelect');
+const daySelect = document.querySelector('#daySelect');
 const themeSelect = document.querySelector('#themeSelect');
 const timetable = document.querySelector('#timetable');
 const cards = document.querySelector('#availabilityCards');
 const title = document.querySelector('#selectionTitle');
 
-periods.forEach(period => periodSelect.add(new Option(period, period)));
+days.forEach(day => daySelect.add(new Option(day, day)));
 
 function entryMarkup(entries) {
   if (!entries.length) return '';
@@ -49,23 +49,37 @@ function renderTable() {
     const cells = timetableData[week][period].map(entries => `<td>${entryMarkup(entries)}</td>`).join('');
     row.innerHTML = `<td class="period">${period}</td>${cells}`;
     body.appendChild(row);
+
+    if (period === 'P3' || period === 'P5') {
+      const breakRow = document.createElement('tr');
+      const label = period === 'P3' ? 'Breaktime' : 'Lunchtime';
+      breakRow.className = 'schedule-break';
+      breakRow.innerHTML = `<td colspan="6">${label}</td>`;
+      body.appendChild(breakRow);
+    }
   });
   timetable.appendChild(body);
 }
 
 function renderAvailability() {
   const week = weekSelect.value;
-  const period = periodSelect.value;
-  const selected = timetableData[week][period];
-  title.textContent = `Week ${week} · ${period}`;
-  cards.innerHTML = days.map((day, index) => {
-    const entries = selected[index];
+  const day = daySelect.value;
+  const dayIndex = days.indexOf(day);
+  title.textContent = `Week ${week} · ${day}`;
+  cards.innerHTML = periods.map(period => {
+    const entries = timetableData[week][period][dayIndex];
     const isGeneralStudies = entries.includes('GS');
-    const free = isGeneralStudies ? [] : entries.filter(code => people[code]);
-    const freeNames = free.length
-      ? free.map(code => `<span class="person-${code}">${people[code]}</span>`).join(', ')
-      : (isGeneralStudies ? 'General Studies' : 'Nobody listed as free');
-    return `<article class="day-card"><div class="day-name">${day}</div><div class="free-names ${free.length ? '' : 'none'}">${freeNames}</div></article>`;
+    const scheduled = isGeneralStudies || entries.includes('GAMES')
+      ? []
+      : entries.filter(code => people[code]);
+    const status = isGeneralStudies
+      ? 'General Studies'
+      : entries.includes('GAMES')
+        ? 'GAMES'
+        : scheduled.length
+          ? scheduled.map(code => `<span class="person-${code}">${people[code]}</span>`).join(', ')
+          : 'Nobody listed as scheduled';
+    return `<article class="day-card"><div class="day-name">${period}</div><div class="free-names ${scheduled.length ? '' : 'none'}">${status}</div></article>`;
   }).join('');
 }
 
@@ -75,7 +89,7 @@ function render() {
 }
 
 weekSelect.addEventListener('change', render);
-periodSelect.addEventListener('change', renderAvailability);
+daySelect.addEventListener('change', renderAvailability);
 themeSelect.addEventListener('change', () => {
   document.body.classList.toggle('dark', themeSelect.value === 'dark');
 });
