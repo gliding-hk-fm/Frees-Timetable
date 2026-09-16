@@ -65,6 +65,17 @@ th:not(:first-child), td:not(:first-child) { width: calc((100% - 82px) / 5); }
 td { height: 58px; padding: 8px 10px; border-top: 1px solid var(--line); border-right: 1px solid var(--line); vertical-align: middle; }
 tr:nth-child(even) td { background: #fafbfe; }
 .period { color: var(--blue-dark); font-weight: 800; }
+.schedule-break td {
+  height: 30px;
+  padding: 4px 10px;
+  background: var(--pale-blue);
+  color: var(--blue-dark);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-align: center;
+  text-transform: uppercase;
+}
 .entry { display: inline; }
 .initial { font-weight: 850; }
 .games { background: #8a96bd !important; color: white; font-weight: 800; text-align: center; letter-spacing: .04em; }
