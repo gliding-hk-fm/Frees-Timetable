@@ -78,7 +78,7 @@ function renderAvailability() {
         ? 'GAMES'
         : scheduled.length
           ? scheduled.map(code => `<span class="person-${code}">${people[code]}</span>`).join(', ')
-          : ' ';
+          : 'No one :(';
     return `<article class="day-card"><div class="day-name">${period}</div><div class="free-names ${scheduled.length ? '' : 'none'}">${status}</div></article>`;
   }).join('');
 }
