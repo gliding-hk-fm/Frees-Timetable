@@ -1,5 +1,5 @@
 const people = { L: 'Leila', O: 'Olivia', A: 'Adam', F: 'Felix', J: 'Joshua' };
-const days = ['Mon', 'Tue', 'Wed', 'Thurs', 'Fri'];
+const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 const periods = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7'];
 
 // Entries transcribed from the supplied timetable image. An empty string means no one is scheduled.
